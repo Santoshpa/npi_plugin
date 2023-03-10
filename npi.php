@@ -28,7 +28,7 @@ if(!class_exists('NPI')) {
 
         function hello()
         {
-            echo 'Hello Npi College';
+            echo 'Hello Dipendra';
         }
         
     }
