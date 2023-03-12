@@ -7,7 +7,6 @@ defined('ABSPATH') or die('No script kiddies please!!');
  * Description:       A contact form for npi.
  * Version:           1.0.0
  * Requires at least: 5.4
- * Requires PHP:      7.4
  * Author:            Santosh Panta
  * Author URI:        https://santoshpanta.com/
  * License:           GPL v2 or later
@@ -23,15 +22,38 @@ if(!class_exists('NPI')) {
         
         function __construct()
         {
-            $this->hello();
+            $this->define_constants();   
+            $this->register_settings();
+            
+            add_action('admin_menu', array( $this, 'npi_admin_menu' ));
+            add_shortcode('npi-contact-form', array( $this, 'contact_form_design' ));
         }
 
-        function hello()
+        function define_constants()
         {
-            echo 'Hello Dipendra';
+
+            defined('NPI_PATH') or define('NPI_PATH', plugin_dir_path(__FILE__));
+            defined('NPI_URL') or define('NPI_URL', plugin_dir_url(__FILE__));
+            defined('NPI_VERSION') or define('NPI_VERSION', '1.0.0');
         }
         
-    }
+        function npi_admin_menu()
+        {
+            add_menu_page('NPI Contact Form', 'NPI Contact', 'manage_options', 'npi', array( $this, 'ss_settings_page' ), 'dashicons-share');
+        }
 
+        function ss_settings_page()
+        {
+        }
+
+        function register_settings()
+        {
+        }
+
+        function contact_form_design()
+        {
+            echo "I am a contact form from NPI contact form plugin.";
+        }
+    }
     new NPI;
 }
